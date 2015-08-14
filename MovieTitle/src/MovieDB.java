@@ -50,7 +50,7 @@ public class MovieDB {
     
     public String generateMovieName(){ 
     	ResultSet result;
-    	String movieName ="";
+    	String movieName ="", adj="",noun="";
 		try {
 			String sql = "SELECT * FROM (SELECT * FROM MovieTitleGenerator ORDER BY DBMS_RANDOM.RANDOM)"
 					+ " WHERE rownum =1";
@@ -58,7 +58,12 @@ public class MovieDB {
 			result = getFromDB(sql);
 			
 			result.next();
-			movieName = result.getString("Adjectives") + " " +  result.getString("Nouns");
+			adj = Character.toUpperCase(result.getString("Adjectives").charAt(0)) 
+					+ result.getString("Adjectives").substring(1);
+			noun = Character.toUpperCase(result.getString("Nouns").charAt(0)) 
+					+ result.getString("Nouns").substring(1);
+			
+			movieName =  adj + " " + noun;
 			
 		} catch (SQLException e) {
 			
@@ -80,5 +85,26 @@ public class MovieDB {
 			e.printStackTrace();
 		}
     }  
+    
+    public int getCount(){ 
+    	ResultSet result;
+    	int count=0;
+		try {
+			String sql = "SELECT count(*) as count FROM MovieTitleGenerator";
+			
+			result = getFromDB(sql);
+			
+			result.next();
+			
+			count = result.getInt("Count");
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+    	return count;
+    }
+    
     
 }

@@ -5,9 +5,6 @@ public class MovieTitleGen
 {
 	public static void main(String[] args)
 	{
-
-		//String[] adjectives = arrayFromUrl("https://cs.leanderisd.org/txt/adjectives.txt");
-		//String[] nouns      = arrayFromUrl("https://cs.leanderisd.org/txt/nouns.txt");
 		Scanner sc = new Scanner(System.in);
 		String description="",choice="y";
 		MovieDB.openConnection();
@@ -15,13 +12,16 @@ public class MovieTitleGen
 		String movie = "";
 		System.out.println("Myxyllplyk's Random Movie Title Generator\n");
 
-		//System.out.print("Choosing randomly from " + adjectives.length + " adjectives ");
-		//System.out.println("and " + nouns.length + " nouns (" + (adjectives.length*nouns.length) + " combinations).");
+		
 
 		// added code to get the random adjectives and noun for the movie name
 		while(choice.equalsIgnoreCase("y"))
 		{
 			movie = database.generateMovieName();
+			
+			System.out.print("Choosing randomly from " + database.getCount() + " adjectives ");
+			System.out.println("and " + database.getCount() + " nouns ("
+						+ (database.getCount()*database.getCount()) + " combinations).");
 			// output is formatted to capitalize first letter of all the words
 			System.out.println( "Your movie title is: " + movie);
 			
@@ -37,9 +37,9 @@ public class MovieTitleGen
 		try {
 			MovieDB.conn.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		sc.close();
 	}
 
 }
