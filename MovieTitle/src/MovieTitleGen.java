@@ -7,8 +7,10 @@ public class MovieTitleGen
 	{
 		Scanner sc = new Scanner(System.in);
 		String description="",choice="y";
+		// open the database connection
 		MovieDB.openConnection();
 		MovieDB database = new MovieDB();
+		
 		String movie = "";
 		System.out.println("Myxyllplyk's Random Movie Title Generator\n");
 
@@ -39,6 +41,7 @@ public class MovieTitleGen
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		// close the scanner
 		sc.close();
 	}
 
